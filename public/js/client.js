@@ -2,18 +2,27 @@ $(onReady);
 
 function onReady() {
   // event listener
-  $('#customerList').on('click', '.showButton', showOrders);
+  // $('#customerList').on('click', '.showButton', showCustomers);
 
+  showCustomers();
 }
 
-var showOrders = function() {
+var showCustomers = function() {
   $.get('/orders')
-  .done(getOrders)
+  .done(getCustomers)
   .fail(weHaveFailed);
 };
 
-var getOrders = function(ordersList) {
-  console.log(ordersList);
+var getCustomers = function(customersList) {
+  console.log(customersList);
+  $('#customerList > tbody').empty();
+  for(var i = 0; i < customersList.length; i++){
+    var newRow = $('<tr>');
+    newRow.data('customerId', customersList[i].id);
+    newRow.append('<td>' + customersList[i].first_name + ' ' + customersList[i].last_name + '</td>');
+    newRow.append('<td><input type="button" value="Show" class="btn btn-primary showButton" /></td>');
+    $('#customerList > tbody').append(newRow);
+  }
 };
 
 
