@@ -44,7 +44,8 @@ router.get('/:id', function (req, res) {
     }
 
     client.query('SELECT orders.id AS order_id, products.description AS item_name,' +
-    'products.unit_price, line_items.quantity FROM customers ' +
+    'products.unit_price, line_items.quantity ' +
+    'FROM customers ' +
     'JOIN addresses ON customers.id = addresses.customer_id ' +
     'JOIN orders ON addresses.id = orders.address_id ' +
     'JOIN line_items ON orders.id = line_items.order_id ' +

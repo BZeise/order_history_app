@@ -28,24 +28,22 @@ var showCustomers = function(customersList) {
 var getOrders = function() {
   var inOneLine = $(this).parent().parent().data().customerId;
   $.get('/orders/' + inOneLine)
-  .done(logFunction)
-  //.done(showOrders)
+  .done(showOrders)
+
   .fail(weHaveFailed);
 };
 
-var logFunction = function(thingie){
-  console.log("We did it!");
-  console.log(thingie);
-};
 
 var showOrders = function(ordersList) {
   console.log(ordersList);
-  $('#customerList > tbody').empty();
+  $('#orderList > tbody').empty();
   for(var i = 0; i < ordersList.length; i++){
     var newRow = $('<tr>');
-    newRow.data('customerId', ordersList[i].id);
-    newRow.append('<td>' + ordersList[i].id + '</td>');
-    newRow.append('<td><input type="button" value="Show" class="btn btn-primary showButton" /></td>');
+    newRow.append('<td>' + ordersList[i].order_id + '</td>');
+    newRow.append('<td>' + ordersList[i].item_name + '</td>');
+    newRow.append('<td>' + ordersList[i].unit_price + '</td>');
+    newRow.append('<td>' + ordersList[i].quantity + '</td>');
+    newRow.append('<td>' + '$' + (ordersList[i].unit_price *  ordersList[i].quantity ).toFixed(2) + '</td>');
     $('#orderList > tbody').append(newRow);
     //orders.id AS order_id, products.description AS item_name,' +
     // 'products.unit_price, line_items.quantity
