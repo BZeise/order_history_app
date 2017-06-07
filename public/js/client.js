@@ -39,11 +39,13 @@ var showOrders = function(ordersList) {
   $('#orderList > tbody').empty();
   for(var i = 0; i < ordersList.length; i++){
     var newRow = $('<tr>');
+    console.log(ordersList[i].order_date);
     newRow.append('<td>' + ordersList[i].order_id + '</td>');
     newRow.append('<td>' + ordersList[i].item_name + '</td>');
     newRow.append('<td>' + ordersList[i].unit_price + '</td>');
     newRow.append('<td>' + ordersList[i].quantity + '</td>');
     newRow.append('<td>' + '$' + (ordersList[i].unit_price *  ordersList[i].quantity ).toFixed(2) + '</td>');
+    newRow.append('<td>' + ordersList[i].street + ' ' + ordersList[i].city + ', ' + ordersList[i].state + '  ' + ordersList[i].zip +  '</td>');
     $('#orderList > tbody').append(newRow);
     //orders.id AS order_id, products.description AS item_name,' +
     // 'products.unit_price, line_items.quantity

@@ -43,14 +43,16 @@ router.get('/:id', function (req, res) {
       return;
     }
 
-    client.query('SELECT orders.id AS order_id, products.description AS item_name,' +
-    'products.unit_price, line_items.quantity ' +
+    client.query('SELECT orders.id AS order_id, products.description AS item_name, ' +
+    'products.unit_price, line_items.quantity, addresses.street, addresses.city, '+
+    'addresses.state, addresses.zip ' +
     'FROM customers ' +
     'JOIN addresses ON customers.id = addresses.customer_id ' +
     'JOIN orders ON addresses.id = orders.address_id ' +
     'JOIN line_items ON orders.id = line_items.order_id ' +
     'JOIN products ON line_items.product_id = products.id ' +
-    'WHERE customers.id = ' + id + ';', function (err, result) {
+    'WHERE customers.id = ' + id +
+    ' ORDER BY orders.order_date ASC;', function (err, result) {
       done();
       if (err) {
         console.log('Error querying the DB', err);
